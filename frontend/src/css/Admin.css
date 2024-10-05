@@ -1,0 +1,98 @@
+/* Admin.css */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h2 {
+  color: #1e3c72;
+  margin-bottom: 1.5rem;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.download-btn {
+  background-color: #1e3c72;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #2a5298;
+}
+
+.submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.submissions-table th,
+.submissions-table td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.submissions-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.submissions-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.submissions-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.loading,
+.error {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .search-input {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .submissions-table {
+    font-size: 0.9rem;
+  }
+
+  .submissions-table th,
+  .submissions-table td {
+    padding: 0.6rem;
+  }
+}
