@@ -57,4 +57,15 @@ public class Portfolio {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Portfolio{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", link='" + link + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }
