@@ -2,6 +2,7 @@ package com.example.Dev.Barun.Portfolio.Backend.controller;
 
 import com.example.Dev.Barun.Portfolio.Backend.model.Portfolio;
 import com.example.Dev.Barun.Portfolio.Backend.repository.ContactFormRepo;
+import com.example.Dev.Barun.Portfolio.Backend.service.AdminUserInsertionService;
 import com.example.Dev.Barun.Portfolio.Backend.service.EmailService;
 import com.example.Dev.Barun.Portfolio.Backend.service.PortfolioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +33,9 @@ public class PortfolioController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private AdminUserInsertionService adminUserInsertionService;
 
     private static final Logger logger = LoggerFactory.getLogger(PortfolioController.class);
 
@@ -113,5 +117,13 @@ public class PortfolioController {
     @DeleteMapping("/projects/{id}")
     public void deletePortfolio(@PathVariable Long id) {
         portfolioService.deleteData(id);
+    }
+
+    @DeleteMapping("/contact-submissions/{id}")
+    public ResponseEntity<String> deleteContactSubmission(@PathVariable Long id) {
+        ContactForm contactForm = contactFormRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Contact form not found with ID: " + id));
+        contactFormRepo.delete(contactForm);
+        return ResponseEntity.ok("Submission deleted successfully");
     }
 }

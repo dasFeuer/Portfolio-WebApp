@@ -14,18 +14,23 @@ public class PortfolioService {
     private PortfolioRepo portfolioRepo;
 
     public List<Portfolio> getAllData() {
+
         return portfolioRepo.findAll();
     }
 
     public Portfolio saveData(Portfolio portfolio) {
+
         return portfolioRepo.save(portfolio);
     }
 
     public Portfolio getPortfolioById(Long id) {
-        return portfolioRepo.findById(id).orElse(null);
+
+        return portfolioRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
     }
 
     public void deleteData(Long id) {
+
         portfolioRepo.deleteById(id);
     }
 }
