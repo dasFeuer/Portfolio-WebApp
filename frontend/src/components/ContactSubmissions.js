@@ -22,6 +22,10 @@ function ContactSubmissions() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
+    fetchSubmissions();
+  }, []);
+
+  const fetchSubmissions = () => {
     ApiService.getContactSubmissions()
       .then((response) => {
         setSubmissions(response.data);
@@ -32,7 +36,20 @@ function ContactSubmissions() {
         setError('Error fetching submissions');
         setLoading(false);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this submission?")) {
+      ApiService.deleteContactSubmission(id)
+        .then(() => {
+          fetchSubmissions(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+          console.error('Error deleting submission', error);
+          setError('Error deleting submission');
+        });
+    }
+  };
 
   // Filter submissions based on the search query
   const filteredSubmissions = submissions.filter((submission) =>
@@ -47,7 +64,6 @@ function ContactSubmissions() {
         Contact Form Submissions
       </Typography>
 
-      {/* Search input field */}
       <TextField
         label="Search Submissions"
         variant="outlined"
@@ -73,7 +89,7 @@ function ContactSubmissions() {
                 <TableCell>Email</TableCell>
                 <TableCell>Message</TableCell>
                 <TableCell>Date Submitted</TableCell>
-                <TableCell>Actions</TableCell> {/* Add an Actions column */}
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -88,9 +104,18 @@ function ContactSubmissions() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => ApiService.downloadSingleCSV(submission.id)} // Call the new API function
+                      onClick={() => ApiService.downloadSingleCSV(submission.id)}
                     >
                       Download CSV
+                    </Button>
+                    {/* Delete button for each submission */}
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(submission.id)}
+                      style={{ marginLeft: '10px' }}
+                    >
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>

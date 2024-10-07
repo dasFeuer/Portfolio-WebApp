@@ -15,6 +15,7 @@ function Projects() {
   const fetchProjects = async () => {
     try {
       const response = await ApiService.getProjects();
+      console.log("Fetched projects:", response.data);
       setProjects(response.data);
       setLoading(false);
     } catch (error) {
@@ -34,19 +35,14 @@ function Projects() {
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          src={project.image || '/placeholder.svg?height=200&width=300'}
-          alt={project.name}
+          src={project.imageUrl || '/placeholder.svg?height=200&width=300'}
+          alt={project.name || 'Project'}
           className="project-image"
         />
         <div className="project-content">
-          <h3 className="project-name">{project.name}</h3>
-          <p className="project-description">{project.description}</p>
-          <div className="project-tags">
-            {project.tags && project.tags.map(tag => (
-              <span key={tag} className="project-tag">{tag}</span>
-            ))}
-          </div>
-          <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">View Project</a>
+          <h3 className="project-name">{project.name || 'Untitled Project'}</h3>
+          <p className="project-description">{project.description || 'No description available.'}</p>
+          <a href={project.link || '#'} target="_blank" rel="noopener noreferrer" className="project-link">View Project</a>
         </div>
       </div>
     );
@@ -70,6 +66,9 @@ function Projects() {
     );
   }
 
+  // Check if there are any valid projects
+  const hasValidProjects = projects.some(project => project.name && project.description);
+
   const projectIdeas = [
     { Icon: FaLightbulb, title: "Innovative Ideas", description: "Brainstorming cutting-edge concepts" },
     { Icon: FaCode, title: "Coding in Progress", description: "Turning ideas into reality" },
@@ -79,7 +78,13 @@ function Projects() {
   return (
     <div className="projects-container">
       <h2 className="projects-title">My Projects</h2>
-      {projects.length === 0 ? (
+      {hasValidProjects ? (
+        <div className="projects-grid">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      ) : (
         <div className="no-projects">
           <h3>Exciting Projects Coming Soon!</h3>
           <p>I'm currently working on some amazing projects. Stay tuned for updates!</p>
@@ -93,12 +98,6 @@ function Projects() {
             ))}
           </div>
           <a href="/contact" className="start-project-btn">Let's Collaborate</a>
-        </div>
-      ) : (
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
         </div>
       )}
     </div>

@@ -20,28 +20,30 @@ const ApiService = {
 
   // Fetch contact submissions from the backend
   getContactSubmissions: () => {
-      return apiClient.get('/contact-submissions');
+    return apiClient.get('/contact-submissions');
   },
 
-  // Add this function to ApiService.js
-downloadCSV: () => {
-    console.log("Download CSV button clicked");
+  deleteContactSubmission(id) {
+    return apiClient.delete(`${API_BASE_URL}/contact-submissions/${id}`);
+  },
+
+  downloadCSV: () => {
     return axios({
-      url: `${API_BASE_URL}/export-submissions`,  // Adjust this URL as needed
+      url: `${API_BASE_URL}/export-submissions`,
       method: 'GET',
-      responseType: 'blob',  // Important to set the response type to blob for file download
+      responseType: 'blob',
     }).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'contact_submissions.csv');  // Filename for download
+      link.setAttribute('download', 'contact_submissions.csv');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }).catch(error => {
       console.error("Error downloading CSV", error);
     });
-  }
+  },
 };
 
 export default ApiService;

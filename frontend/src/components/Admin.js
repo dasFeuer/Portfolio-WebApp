@@ -31,6 +31,19 @@ function Admin() {
     submission.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this submission?")) {
+      ApiService.deleteContactSubmission(id)
+        .then(() => {
+          fetchSubmissions(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+          console.error('Error deleting submission', error);
+          setError('Error deleting submission');
+        });
+    }
+  };
+
   const handleDownloadCSV = async () => {
     try {
       await ApiService.downloadCSV();
@@ -67,6 +80,7 @@ function Admin() {
               <th>Name</th>
               <th>Email</th>
               <th>Message</th>
+              <th>Actions</th> {/* Added for delete action */}
             </tr>
           </thead>
           <tbody>
@@ -75,6 +89,12 @@ function Admin() {
                 <td>{submission.name}</td>
                 <td>{submission.email}</td>
                 <td>{submission.message}</td>
+                <td>
+                  {/* Add a delete button */}
+                  <button className="delete-btn" onClick={() => handleDelete(submission.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
