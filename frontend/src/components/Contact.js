@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ApiService from '../services/ApiService';
+import { ThemeContext } from './ThemeContext';
 import '../css/Contact.css';
 
 function Contact() {
@@ -7,6 +8,7 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null);
+   const { darkMode } = useContext(ThemeContext);
 
   const validateForm = () => {
     let formErrors = {};
@@ -51,7 +53,7 @@ function Contact() {
   };
 
   return (
-    <div className="contact-container">
+    <div className={`contact-container ${darkMode ? 'dark' : ''}`}>
       <h2 className="contact-title">Get in Touch</h2>
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="form-group">

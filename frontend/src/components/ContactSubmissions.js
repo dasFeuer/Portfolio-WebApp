@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ApiService from '../services/ApiService';
+import { ThemeContext } from './ThemeContext';
 import {
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import {
   Typography,
   TextField,
 } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '../css/Admin.css';
 
 function ContactSubmissions() {
@@ -20,6 +22,13 @@ function ContactSubmissions() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const { darkMode } = useContext(ThemeContext);
+
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+    },
+  });
 
   useEffect(() => {
     fetchSubmissions();
@@ -59,7 +68,8 @@ function ContactSubmissions() {
   );
 
   return (
-    <div className="admin-panel-container">
+  <ThemeProvider theme={theme}>
+    <div className={`admin-panel-container ${darkMode ? 'dark' : ''}`}>
       <Typography variant="h4" gutterBottom className="admin-panel-title">
         Contact Form Submissions
       </Typography>
@@ -125,6 +135,7 @@ function ContactSubmissions() {
         </TableContainer>
       )}
     </div>
+  </ThemeProvider>
   );
 }
 

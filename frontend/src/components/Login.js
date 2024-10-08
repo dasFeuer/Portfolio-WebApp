@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
+import { ThemeContext } from './ThemeContext';
 import '../css/Login.css';
 
 function Login({ setIsAuthenticated }) {
@@ -10,6 +11,7 @@ function Login({ setIsAuthenticated }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { darkMode } = useContext(ThemeContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ function Login({ setIsAuthenticated }) {
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${darkMode ? 'dark' : ''}`}>
       <motion.div
         className="login-box"
         initial={{ opacity: 0, y: -50 }}

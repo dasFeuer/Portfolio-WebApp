@@ -2,13 +2,17 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 2rem;
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease;
 }
+
 
 .projects-title {
   text-align: center;
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 2rem;
+  color: var(--text-color);
 }
 
 .projects-grid {
@@ -18,11 +22,12 @@
 }
 
 .project-card {
-  background: #fff;
   border-radius: 10px;
   overflow: hidden;
+  background: var(--card-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
 }
 
 .project-card:hover {
@@ -42,13 +47,13 @@
 
 .project-name {
   font-size: 1.5rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .project-description {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
@@ -60,8 +65,8 @@
 }
 
 .project-tag {
-  background: #e0e0e0;
-  color: #333;
+  background: var(--tag-background);
+  color: var(--text-color);
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -69,8 +74,8 @@
 
 .project-link {
   display: inline-block;
-  background: #3498db;
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--background-color);
   padding: 0.5rem 1rem;
   border-radius: 5px;
   text-decoration: none;
@@ -78,7 +83,7 @@
 }
 
 .project-link:hover {
-  background: #2980b9;
+  background: var(--primary-color-dark);
   transform: translateY(-2px);
 }
 
@@ -107,7 +112,7 @@
 .loader-container p {
   margin-top: 1rem;
   font-size: 1.2rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .error-container {
@@ -116,14 +121,14 @@
 }
 
 .error-container p {
-  color: #e74c3c;
+  color: var(--error-color);
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
 
 .retry-btn {
-  background: #3498db;
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -132,27 +137,28 @@
 }
 
 .retry-btn:hover {
-  background: #2980b9;
+  background: var(--primary-color-dark);
   transform: translateY(-2px);
 }
 
 .no-projects {
   text-align: center;
   padding: 2rem;
-  background: #f8f9fa;
   border-radius: 10px;
+  background: var(--card-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .no-projects h3 {
   font-size: 2rem;
-  color: #333;
   margin-bottom: 1rem;
+  color: var(--text-color);
 }
 
 .no-projects p {
   font-size: 1.2rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
@@ -164,11 +170,12 @@
 }
 
 .idea-card {
-  background: #fff;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  background: var(--card-background);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .idea-card:hover {
@@ -177,25 +184,25 @@
 
 .idea-icon {
   font-size: 2.5rem;
-  color: #3498db;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
 .idea-card h4 {
   font-size: 1.2rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .idea-card p {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .start-project-btn {
   display: inline-block;
-  background: #3498db;
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--background-color);
   padding: 0.75rem 1.5rem;
   border-radius: 5px;
   text-decoration: none;
@@ -204,7 +211,7 @@
 }
 
 .start-project-btn:hover {
-  background: #2980b9;
+  background: var(--primary-color-dark);
   transform: translateY(-3px);
 }
 

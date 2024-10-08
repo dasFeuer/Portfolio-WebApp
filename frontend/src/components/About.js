@@ -1,64 +1,166 @@
-import React from 'react';
-import {FaGraduationCap, FaBriefcase, FaCode } from 'react-icons/fa';
+import React, { useState, useContext } from 'react';
+import { FaGraduationCap, FaBriefcase, FaCode, FaLanguage, FaDownload, FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { GB, DE } from 'country-flag-icons/react/3x2';
+import { ThemeContext } from "./ThemeContext";
 import '../css/About.css';
 
-function About() {
+const About = () => {
+  const [language, setLanguage] = useState('en');
+  const { darkMode } = useContext(ThemeContext);
+  const content = {
+    en: {
+      title: 'About Me',
+      name: 'Barun Panthi Sharma',
+      intro: "I'm a passionate Java learner with beginner-level experience in Spring Boot and MySQL. I specialize in building scalable applications and thrive on solving complex problems. My goal is to create efficient, maintainable, and user-friendly software solutions.",
+      education: 'Education',
+      experience: 'Work Experience',
+      skills: 'Skills',
+      languages: 'Language Skills',
+      interests: 'Interests',
+      downloadCV: 'Download CV',
+      educationItems: [
+        { title: 'Higher Secondary School', institution: 'Advance Academy Secondary School and Republica College', period: '07/2019 – 09/2021' },
+        { title: 'Secondary School', institution: 'Janjyoti Secondary Boarding School', period: '05/2010 – 04/2019' },
+      ],
+      experienceItems: [
+        { title: 'Team Assistant', company: 'Nepal Secretariat of Skills and Training (NSST)', period: '06/07/2023 - Present' },
+        { title: 'Soft Skills Training Participant', company: 'Nepal Secretariat of Skills and Training (NSST)', period: '04/04/2023 - 07/01/2024' },
+      ],
+      skillItems: ['Java', 'Spring Boot', 'MySQL', 'HTML', 'CSS', 'Python', 'C', 'Git'],
+      languageItems: [
+        { language: 'Nepali', level: 'Native' },
+        { language: 'German', level: 'C1 (Completed course with participation certificate)' },
+        { language: 'English', level: 'Proficient in spoken and written communication' },
+        { language: 'Hindi', level: 'Very good spoken skills' },
+      ],
+      interestItems: ['Basketball', 'Table Tennis', 'Mobile Games', 'Computer Games', 'Listening to Music', 'Cycling', 'Hiking'],
+    },
+    de: {
+      title: 'Über Mich',
+      name: 'Barun Panthi Sharma',
+      intro: "Ich bin ein leidenschaftlicher Java-Lerner mit Anfängererfahrung in Spring Boot und MySQL. Ich spezialisiere mich auf den Aufbau skalierbarer Anwendungen und liebe es, komplexe Probleme zu lösen. Mein Ziel ist es, effiziente, wartbare und benutzerfreundliche Softwarelösungen zu erstellen.",
+      education: 'Schulbildung',
+      experience: 'Arbeitserfahrung',
+      skills: 'Fähigkeiten',
+      languages: 'Sprachkenntnisse',
+      interests: 'Interessen',
+      downloadCV: 'Lebenslauf herunterladen',
+      educationItems: [
+        { title: 'Nepalesisch Abitur', institution: 'Advance Academy Secondary School', period: '07/2019 – 09/2021' },
+        { title: 'Nepalesisch Realschulabschluss', institution: 'Janjyoti Secondary Boarding School', period: '05/2010 – 04/2019' },
+      ],
+      experienceItems: [
+        { title: 'Team Assistent', company: 'Nepal Secretariat of Skills and Training (NSST)', period: '06.07.2023 - heute' },
+        { title: 'Teilnehmer Softskills Training', company: 'NSST', period: '04.04.2023 - 07.01.2024' },
+      ],
+      skillItems: ['Java', 'Spring Boot', 'MySQL', 'HTML', 'CSS', 'Python', 'C', 'Git'],
+      languageItems: [
+        { language: 'Nepalesisch', level: 'Muttersprache' },
+        { language: 'Deutsch', level: 'C1 (Kurs mit Teilnahmezertifikat abgeschlossen)' },
+        { language: 'Englisch', level: 'Gute Kenntnisse in Wort und Schrift' },
+        { language: 'Hindi', level: 'Sehr gute Kenntnisse in Wort' },
+      ],
+      interestItems: ['Basketball', 'Tischtennis', 'Handy Spiele', 'Computerspiele', 'Musik Hören', 'Fahrrad fahren', 'Wanderung'],
+    },
+  };
+
+  const currentContent = content[language];
+
   return (
-    <div className="about-container">
+    <div className={ `about-container ${darkMode ? 'dark' : ''}`}>
       <div className="about-content">
-        <h2 className="about-title">About Me</h2>
+        <div className="language-toggle">
+          <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>
+            <GB title="English" className="flag-icon" />
+          </button>
+          <button onClick={() => setLanguage('de')} className={language === 'de' ? 'active' : ''}>
+            <DE title="Deutsch" className="flag-icon" />
+          </button>
+        </div>
+        <h2 className="about-title">{currentContent.title}</h2>
         <div className="about-intro">
           <img src="/BarunProfile.jpeg" alt="Profile" className="about-image" />
-          <p className="about-description">
-            Hi, My name Barun Panthi Sharma and I am a passionate Java lerner
-            with beginner level experience in Spring Boot and MySQL.
-            I specialize in building scalable applications and thrive on solving complex problems.
-            My goal is to create efficient, maintainable, and user-friendly software solutions.
-          </p>
-        </div>
-        <div className="about-section">
-          <h3 className="section-title"><FaGraduationCap /> Education</h3>
-          <div className="timeline">
-            <div className="timeline-item">
-              <h4>Higher secondary school</h4>
-              <p>Advance academy, 2019-2021</p>
-            </div>
-            <div className="timeline-item">
-              <h4>Secondary school</h4>
-              <p>Janjayoti school, 2008-2019</p>
+          <div className="intro-text">
+            <h3>{currentContent.name}</h3>
+            <p className="about-description">{currentContent.intro}</p>
+            <div className="contact-info">
+              <a href="mailto:barunpanthisharma11@gmail.com" className="contact-item">
+                <FaEnvelope /> barunpanthisharma11@gmail.com
+              </a>
+              <a href="tel:+9779749359878" className="contact-item">
+                <FaPhone /> (+977) 9749359878
+              </a>
+              <a href="https://github.com/dasFeuer" target="_blank" rel="noopener noreferrer" className="contact-item">
+                <FaGithub /> GitHub
+              </a>
             </div>
           </div>
         </div>
 
         <div className="about-section">
-          <h3 className="section-title"><FaBriefcase /> Work Experience</h3>
+          <h3 className="section-title"><FaGraduationCap /> {currentContent.education}</h3>
           <div className="timeline">
-            <div className="timeline-item">
-              <h4>Java Backend Developer</h4>
-              <p>Beginner, 2024 - Present</p>
-            </div>
-          </div>
-          <div className="timeline">
-            <div className="timeline-item">
-              <h4>Nepal Secretariat of Skills and Training (NSST)</h4>
-              <p>Team assistant, 2023 July - Present</p>
-            </div>
+            {currentContent.educationItems.map((item, index) => (
+              <div key={index} className="timeline-item">
+                <h4>{item.title}</h4>
+                <p>{item.institution}</p>
+                <p className="timeline-period">{item.period}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="about-section">
-          <h3 className="section-title"><FaCode /> Skills</h3>
+          <h3 className="section-title"><FaBriefcase /> {currentContent.experience}</h3>
+          <div className="timeline">
+            {currentContent.experienceItems.map((item, index) => (
+              <div key={index} className="timeline-item">
+                <h4>{item.title}</h4>
+                <p>{item.company}</p>
+                <p className="timeline-period">{item.period}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="about-section">
+          <h3 className="section-title"><FaCode /> {currentContent.skills}</h3>
           <div className="skills-container">
-            {['Java', 'Spring Boot', 'Git'].map((skill, index) => (
+            {currentContent.skillItems.map((skill, index) => (
               <span key={index} className="skill-tag">{skill}</span>
             ))}
           </div>
         </div>
 
-        <button className="about-button">Download Resume</button>
+        <div className="about-section">
+          <h3 className="section-title"><FaLanguage /> {currentContent.languages}</h3>
+          <div className="language-skills">
+            {currentContent.languageItems.map((item, index) => (
+              <div key={index} className="language-item">
+                <h4>{item.language}</h4>
+                <p>{item.level}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="about-section">
+          <h3 className="section-title">Interests</h3>
+          <div className="interests-container">
+            {currentContent.interestItems.map((interest, index) => (
+              <span key={index} className="interest-tag">{interest}</span>
+            ))}
+          </div>
+        </div>
+
+        <button className="about-button">
+          <FaDownload /> {currentContent.downloadCV}
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default About;
+
+

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import { FaLightbulb, FaCode, FaRocket } from 'react-icons/fa';
 import ApiService from '../services/ApiService';
+import { ThemeContext } from "./ThemeContext"
 import '../css/Projects.css';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+    const { darkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     fetchProjects();
@@ -76,7 +78,7 @@ function Projects() {
   ];
 
   return (
-    <div className="projects-container">
+    <div className={`projects-container ${darkMode ? 'dark' : ''}`}>
       <h2 className="projects-title">My Projects</h2>
       {hasValidProjects ? (
         <div className="projects-grid">

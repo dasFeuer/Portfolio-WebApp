@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ApiService from '../services/ApiService';
+import { ThemeContext } from './ThemeContext';
 import '../css/Admin.css';
 
 function Admin() {
@@ -7,6 +8,8 @@ function Admin() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { darkMode } = useContext(ThemeContext);
+
 
   useEffect(() => {
     fetchSubmissions();
@@ -57,7 +60,7 @@ function Admin() {
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="admin-container">
+    <div className={`admin-container ${darkMode ? 'dark' : ''}`}>
       <h2>Contact Form Submissions</h2>
       <div className="admin-actions">
         <input

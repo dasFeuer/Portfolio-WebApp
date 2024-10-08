@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaHome, FaUser, FaCode, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa';
+import { ThemeContext } from "./ThemeContext"
 import '../css/Navbar.css';
 
-function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -23,6 +26,14 @@ function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -31,50 +42,53 @@ function Navbar() {
     setIsOpen(false);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const navItems = [
+    { path: '/', name: 'Home', icon: <FaHome /> },
+    { path: '/about', name: 'About', icon: <FaUser /> },
+    { path: '/projects', name: 'Projects', icon: <FaCode /> },
+    { path: '/contact', name: 'Contact', icon: <FaEnvelope /> },
+  ];
+
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${darkMode ? 'dark' : ''}`}>
       <div className="navbar-container">
         <Link className="navbar-brand" to="/" onClick={closeMenu}>
-          Barun
+          <div className="logo">
+            <span className="logo-bracket">{`{`}</span>
+            <span className="logo-text">BPS</span>
+            <span className="logo-bracket">{`}`}</span>
+          </div>
         </Link>
         <div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
-          <Link
-            className={`navbar-item ${location.pathname === '/' ? 'active' : ''}`}
-            to="/"
-            onClick={closeMenu}
-          >
-            Home
-          </Link>
-          <Link
-            className={`navbar-item ${location.pathname === '/about' ? 'active' : ''}`}
-            to="/about"
-            onClick={closeMenu}
-          >
-            About
-          </Link>
-          <Link
-            className={`navbar-item ${location.pathname === '/projects' ? 'active' : ''}`}
-            to="/projects"
-            onClick={closeMenu}
-          >
-            Projects
-          </Link>
-          <Link
-            className={`navbar-item ${location.pathname === '/contact' ? 'active' : ''}`}
-            to="/contact"
-            onClick={closeMenu}
-          >
-            Contact
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              className={`navbar-item ${location.pathname === item.path ? 'active' : ''}`}
+              to={item.path}
+              onClick={closeMenu}
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </Link>
+          ))}
         </div>
-        <button className="navbar-burger" onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div className="navbar-actions">
+          <button className="theme-toggle" onClick={toggleDarkMode}>
+            {darkMode ? <FaSun /> : <FaMoon />}
+          </button>
+          <button className="navbar-burger" onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

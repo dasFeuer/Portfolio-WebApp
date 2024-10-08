@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { ThemeContext } from './ThemeContext';
 import '../css/Footer.css';
 
 function Footer() {
+  const { darkMode } = useContext(ThemeContext);
+
   return (
-    <footer className="footer">
+    <footer className={`footer ${darkMode ? 'dark' : ''}`}>
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-section">
