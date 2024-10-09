@@ -8,15 +8,6 @@
   --section-spacing: 5rem;
 }
 
-.home-container.dark {
-  --primary-color: #64b5f6;
-  --secondary-color: #4a8ec8;
-  --text-color: #f0f0f0;
-  --background-color: #121212;
-  --card-background: #1e1e1e;
-  --accent-color: #90caf9;
-}
-
 body {
   font-family: 'Roboto', sans-serif;
   line-height: 1.6;
@@ -34,25 +25,20 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.home-content {
-  background-color: var(--card-background);
-  transition: background-color 0.3s ease;
-}
-
 .home-header {
   text-align: center;
   margin-bottom: var(--section-spacing);
 }
 
 .home-title {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   color: var(--primary-color);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 }
 
 .home-subtitle {
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
   color: var(--secondary-color);
   transition: color 0.3s ease;
 }
@@ -68,6 +54,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 3rem;
+  flex-wrap: wrap;
 }
 
 .profile-image {
@@ -88,10 +75,11 @@ body {
 
 .typing-container {
   flex: 1;
+  min-width: 300px;
 }
 
 .typing-text {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 300;
   color: var(--text-color);
   min-height: 2.5em;
@@ -111,7 +99,7 @@ body {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
   color: var(--primary-color);
   margin-bottom: 2rem;
   text-align: center;
@@ -133,7 +121,7 @@ body {
 
 .expertise-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
 }
 
@@ -196,11 +184,13 @@ body {
   padding: 3rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cta-buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
   margin-top: 2rem;
@@ -214,6 +204,8 @@ body {
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 250px;
 }
 
 .home-button.primary {
@@ -237,37 +229,31 @@ body {
 }
 
 .home-button.secondary:hover {
-  background-color: rgba(52, 152, 219, 0.1);
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 @media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+  }
+
   .home-hero {
     flex-direction: column;
   }
 
-  .home-title {
-    font-size: 2.8rem;
+  .profile-image {
+    width: 200px;
+    height: 200px;
   }
 
-  .home-subtitle {
-    font-size: 1.5rem;
-  }
-
-  .typing-text {
-    font-size: 1.8rem;
-  }
-
-  .section-title {
-    font-size: 2.2rem;
+  .typing-container {
+    text-align: center;
   }
 
   .expertise-grid {
@@ -276,9 +262,27 @@ body {
 
   .cta-buttons {
     flex-direction: column;
+    align-items: center;
   }
 
   .home-button {
     width: 100%;
+    max-width: 250px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-button:hover,
+  .skill-tag:hover,
+  .expertise-item:hover {
+    transform: none;
+  }
+
+  .cursor {
+    animation: none;
   }
 }

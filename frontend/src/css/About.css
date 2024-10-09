@@ -19,12 +19,6 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-
-.about-container.dark .about-content {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
 .about-title {
   font-size: 2.5rem;
   color: var(--text-color);
@@ -37,60 +31,6 @@
   color: var(--text-color);
   line-height: 1.6;
   margin-bottom: 20px;
-}
-
-.contact-item {
-  color: var(--primary-color);
-}
-
-.section-title {
-  color: var(--text-color);
-}
-
-.section-title svg {
-  color: var(--primary-color);
-}
-
-.timeline::before {
-  background-color: var(--primary-color);
-}
-
-.timeline-item::before {
-  background-color: var(--primary-color);
-}
-
-.timeline-item h4 {
-  color: var(--text-color);
-}
-
-.timeline-item p {
-  color: var(--text-muted);
-}
-
-.timeline-period {
-  color: var(--text-muted);
-}
-
-.skill-tag, .interest-tag {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-}
-
-.language-item h4 {
-  color: var(--text-color);
-}
-
-.language-item p {
-  color: var(--text-muted);
-}
-
-.about-button {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-}
-
-.about-button:hover {
-  background-color: var(--primary-color-dark);
 }
 
 .language-toggle {
@@ -117,13 +57,6 @@
   height: auto;
 }
 
-.about-title {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
 .about-intro {
   display: flex;
   align-items: flex-start;
@@ -136,20 +69,13 @@
   border-radius: 50%;
   margin-right: 30px;
   object-fit: cover;
-  border: 4px solid #3498db;
+  border: 4px solid var(--primary-color);
 }
 
 .intro-text h3 {
   font-size: 1.8rem;
-  color: #2c3e50;
+  color: var(--text-color);
   margin-bottom: 10px;
-}
-
-.about-description {
-  font-size: 1.1rem;
-  color: #34495e;
-  line-height: 1.6;
-  margin-bottom: 20px;
 }
 
 .contact-info {
@@ -161,7 +87,7 @@
 .contact-item {
   display: flex;
   align-items: center;
-  color: #3498db;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -176,7 +102,7 @@
 
 .section-title {
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: var(--text-color);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -184,7 +110,7 @@
 
 .section-title svg {
   margin-right: 10px;
-  color: #3498db;
+  color: var(--primary-color);
 }
 
 .timeline {
@@ -199,7 +125,7 @@
   top: 5px;
   height: calc(100% - 10px);
   width: 2px;
-  background-color: #3498db;
+  background-color: var(--primary-color);
 }
 
 .timeline-item {
@@ -215,23 +141,23 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #3498db;
+  background-color: var(--primary-color);
 }
 
 .timeline-item h4 {
   font-size: 1.2rem;
-  color: #2c3e50;
+  color: var(--text-color);
   margin-bottom: 5px;
 }
 
 .timeline-item p {
   font-size: 1rem;
-  color: #7f8c8d;
+  color: var(--text-muted);
 }
 
 .timeline-period {
   font-style: italic;
-  color: #95a5a6;
+  color: var(--text-muted);
 }
 
 .skills-container, .interests-container {
@@ -241,8 +167,8 @@
 }
 
 .skill-tag, .interest-tag {
-  background-color: #3498db;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -256,13 +182,13 @@
 
 .language-item h4 {
   font-size: 1.1rem;
-  color: #2c3e50;
+  color: var(--text-color);
   margin-bottom: 5px;
 }
 
 .language-item p {
   font-size: 0.9rem;
-  color: #7f8c8d;
+  color: var(--text-muted);
 }
 
 .about-button {
@@ -273,8 +199,8 @@
   margin: 40px auto 0;
   padding: 12px 20px;
   font-size: 1rem;
-  background-color: #3498db;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -286,8 +212,9 @@
 }
 
 .about-button:hover {
-  background-color: #2980b9;
+  background-color: var(--primary-color-dark);
   transform: translateY(-3px);
+
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -328,7 +255,6 @@
 
   .about-button {
     width: 100%;
-
   }
 
   .contact-info {

@@ -1,19 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
-import { ThemeContext } from './ThemeContext';
 import '../css/Login.css';
 
-function Login({ setIsAuthenticated }) {
+const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { darkMode } = useContext(ThemeContext);
 
-  const handleLogin = async (e) => {
+  const handleLogin = useCallback(async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -27,10 +25,10 @@ function Login({ setIsAuthenticated }) {
       }
       setIsLoading(false);
     }, 1500);
-  };
+  }, [username, password, setIsAuthenticated, navigate]);
 
   return (
-    <div className={`login-container ${darkMode ? 'dark' : ''}`}>
+    <div className="login-container">
       <motion.div
         className="login-box"
         initial={{ opacity: 0, y: -50 }}
@@ -46,6 +44,7 @@ function Login({ setIsAuthenticated }) {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
+              aria-label="Username"
             />
           </div>
           <div className="input-group">
@@ -55,11 +54,13 @@ function Login({ setIsAuthenticated }) {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
+              aria-label="Password"
             />
             <button
               type="button"
               className="password-toggle"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -76,6 +77,6 @@ function Login({ setIsAuthenticated }) {
       </motion.div>
     </div>
   );
-}
+};
 
 export default Login;

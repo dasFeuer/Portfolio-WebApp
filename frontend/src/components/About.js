@@ -1,12 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FaGraduationCap, FaBriefcase, FaCode, FaLanguage, FaDownload, FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { GB, DE } from 'country-flag-icons/react/3x2';
-import { ThemeContext } from "./ThemeContext";
 import '../css/About.css';
 
 const About = () => {
   const [language, setLanguage] = useState('en');
-  const { darkMode } = useContext(ThemeContext);
+
   const content = {
     en: {
       title: 'About Me',
@@ -66,14 +65,25 @@ const About = () => {
 
   const currentContent = content[language];
 
+  const handleLanguageChange = useCallback((lang) => {
+    setLanguage(lang);
+  }, []);
+
+  const renderSection = useCallback((title, icon, content) => (
+    <div className="about-section">
+      <h3 className="section-title">{icon} {title}</h3>
+      {content}
+    </div>
+  ), []);
+
   return (
-    <div className={ `about-container ${darkMode ? 'dark' : ''}`}>
+    <div className="about-container">
       <div className="about-content">
         <div className="language-toggle">
-          <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>
+          <button onClick={() => handleLanguageChange('en')} className={language === 'en' ? 'active' : ''}>
             <GB title="English" className="flag-icon" />
           </button>
-          <button onClick={() => setLanguage('de')} className={language === 'de' ? 'active' : ''}>
+          <button onClick={() => handleLanguageChange('de')} className={language === 'de' ? 'active' : ''}>
             <DE title="Deutsch" className="flag-icon" />
           </button>
         </div>
@@ -97,8 +107,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="about-section">
-          <h3 className="section-title"><FaGraduationCap /> {currentContent.education}</h3>
+        {renderSection(currentContent.education, <FaGraduationCap />,
           <div className="timeline">
             {currentContent.educationItems.map((item, index) => (
               <div key={index} className="timeline-item">
@@ -108,10 +117,9 @@ const About = () => {
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        <div className="about-section">
-          <h3 className="section-title"><FaBriefcase /> {currentContent.experience}</h3>
+        {renderSection(currentContent.experience, <FaBriefcase />,
           <div className="timeline">
             {currentContent.experienceItems.map((item, index) => (
               <div key={index} className="timeline-item">
@@ -121,19 +129,17 @@ const About = () => {
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        <div className="about-section">
-          <h3 className="section-title"><FaCode /> {currentContent.skills}</h3>
+        {renderSection(currentContent.skills, <FaCode />,
           <div className="skills-container">
             {currentContent.skillItems.map((skill, index) => (
               <span key={index} className="skill-tag">{skill}</span>
             ))}
           </div>
-        </div>
+        )}
 
-        <div className="about-section">
-          <h3 className="section-title"><FaLanguage /> {currentContent.languages}</h3>
+        {renderSection(currentContent.languages, <FaLanguage />,
           <div className="language-skills">
             {currentContent.languageItems.map((item, index) => (
               <div key={index} className="language-item">
@@ -142,25 +148,22 @@ const About = () => {
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        <div className="about-section">
-          <h3 className="section-title">Interests</h3>
+        {renderSection(currentContent.interests, null,
           <div className="interests-container">
             {currentContent.interestItems.map((interest, index) => (
               <span key={index} className="interest-tag">{interest}</span>
             ))}
           </div>
-        </div>
+        )}
 
-        <button className="about-button">
+        <a href="/Barun_Panthi_Sharma_Der_Lebenslauf.pdf" download className="about-button">
           <FaDownload /> {currentContent.downloadCV}
-        </button>
+        </a>
       </div>
     </div>
   );
 };
 
 export default About;
-
-

@@ -6,13 +6,11 @@
   transition: background-color 0.3s ease;
 }
 
-
 .projects-title {
   text-align: center;
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2rem;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   color: var(--text-color);
+  margin-bottom: 2rem;
 }
 
 .projects-grid {
@@ -27,11 +25,10 @@
   background: var(--card-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-
 }
 
 .project-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -55,21 +52,6 @@
   font-size: 1rem;
   color: var(--text-muted);
   margin-bottom: 1rem;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.project-tag {
-  background: var(--tag-background);
-  color: var(--text-color);
-  padding: 0.25rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
 }
 
 .project-link {
@@ -96,8 +78,8 @@
 }
 
 .loader {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
+  border: 5px solid var(--background-color);
+  border-top: 5px solid var(--primary-color);
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -147,11 +129,10 @@
   border-radius: 10px;
   background: var(--card-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .no-projects h3 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   margin-bottom: 1rem;
   color: var(--text-color);
 }
@@ -175,7 +156,6 @@
   transition: transform 0.3s ease;
   background: var(--card-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .idea-card:hover {
@@ -220,10 +200,6 @@
     padding: 2rem 1rem;
   }
 
-  .projects-title {
-    font-size: 2rem;
-  }
-
   .projects-grid {
     grid-template-columns: 1fr;
   }
@@ -236,14 +212,6 @@
   .idea-card {
     width: 100%;
     max-width: 300px;
-  }
-
-  .no-projects h3 {
-    font-size: 1.5rem;
-  }
-
-  .no-projects p {
-    font-size: 1rem;
   }
 
   .start-project-btn {

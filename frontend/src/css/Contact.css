@@ -18,7 +18,7 @@
   text-align: center;
   margin-bottom: 2rem;
   color: var(--text-color);
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   font-weight: 700;
 }
 
@@ -78,8 +78,9 @@
   color: var(--background-color);
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background: var(--primary-color-dark);
+  transform: translateY(-2px);
 }
 
 .submit-btn:disabled {
@@ -95,9 +96,9 @@
 }
 
 .alert-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background-color: var(--success-background);
+  color: var(--success-color);
+  border: 1px solid var(--success-border);
 }
 
 .alert-error {
@@ -112,16 +113,23 @@
     margin: 1rem;
   }
 
-  .contact-title {
-    font-size: 2rem;
-  }
-
   .form-control {
     padding: 0.6rem;
   }
 
   .submit-btn {
     padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-container {
+    animation: none;
+  }
+
+  .contact-container:hover,
+  .submit-btn:hover:not(:disabled) {
+    transform: none;
   }
 }
 

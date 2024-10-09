@@ -1,54 +1,59 @@
-import React, { useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FaLightbulb, FaCode, FaRocket } from 'react-icons/fa';
 import ApiService from '../services/ApiService';
-import { ThemeContext } from "./ThemeContext"
 import '../css/Projects.css';
 
-function Projects() {
+const ProjectCard = React.memo(({ project }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className={`project-card ${isHovered ? 'hovered' : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={project.imageUrl || '/placeholder.svg?height=200&width=300'}
+        alt={project.name || 'Project'}
+        className="project-image"
+      />
+      <div className="project-content">
+        <h3 className="project-name">{project.name || 'Untitled Project'}</h3>
+        <p className="project-description">{project.description || 'No description available.'}</p>
+        <a href={project.link || '#'} target="_blank" rel="noopener noreferrer" className="project-link">View Project</a>
+      </div>
+    </div>
+  );
+});
+
+const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    const { darkMode } = useContext(ThemeContext);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await ApiService.getProjects();
-      console.log("Fetched projects:", response.data);
       setProjects(response.data);
-      setLoading(false);
+      setError(null);
     } catch (error) {
       console.error("There was an error fetching the projects!", error);
       setError("Failed to load projects. Please try again later.");
+    } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const ProjectCard = ({ project }) => {
-    const [isHovered, setIsHovered] = useState(false);
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
 
-    return (
-      <div
-        className={`project-card ${isHovered ? 'hovered' : ''}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <img
-          src={project.imageUrl || '/placeholder.svg?height=200&width=300'}
-          alt={project.name || 'Project'}
-          className="project-image"
-        />
-        <div className="project-content">
-          <h3 className="project-name">{project.name || 'Untitled Project'}</h3>
-          <p className="project-description">{project.description || 'No description available.'}</p>
-          <a href={project.link || '#'} target="_blank" rel="noopener noreferrer" className="project-link">View Project</a>
-        </div>
-      </div>
-    );
-  };
+  const projectIdeas = [
+    { Icon: FaLightbulb, title: "Innovative Ideas", description: "Brainstorming cutting-edge concepts" },
+    { Icon: FaCode, title: "Coding in Progress", description: "Turning ideas into reality" },
+    { Icon: FaRocket, title: "Launch Preparation", description: "Getting ready to showcase my work" }
+  ];
 
   if (loading) {
     return (
@@ -68,17 +73,10 @@ function Projects() {
     );
   }
 
-  // Check if there are any valid projects
   const hasValidProjects = projects.some(project => project.name && project.description);
 
-  const projectIdeas = [
-    { Icon: FaLightbulb, title: "Innovative Ideas", description: "Brainstorming cutting-edge concepts" },
-    { Icon: FaCode, title: "Coding in Progress", description: "Turning ideas into reality" },
-    { Icon: FaRocket, title: "Launch Preparation", description: "Getting ready to showcase my work" }
-  ];
-
   return (
-    <div className={`projects-container ${darkMode ? 'dark' : ''}`}>
+    <div className="projects-container">
       <h2 className="projects-title">My Projects</h2>
       {hasValidProjects ? (
         <div className="projects-grid">
@@ -104,6 +102,6 @@ function Projects() {
       )}
     </div>
   );
-}
+};
 
 export default Projects;

@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaUser, FaCode, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa';
-import { ThemeContext } from "./ThemeContext"
+import { FaHome, FaUser, FaCode, FaEnvelope } from 'react-icons/fa';
 import '../css/Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [scrolled, setScrolled] = useState(false); // Keep scrolled as we might use it for a sticky navbar
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(offset > 50); // Simple scroll check
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -26,24 +20,12 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }, [darkMode]);
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const closeMenu = () => {
     setIsOpen(false);
-  };
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
   };
 
   const navItems = [
@@ -54,7 +36,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${darkMode ? 'dark' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <Link className="navbar-brand" to="/" onClick={closeMenu}>
           <div className="logo">
@@ -77,8 +59,8 @@ const Navbar = () => {
           ))}
         </div>
         <div className="navbar-actions">
-          <button className="theme-toggle" onClick={toggleDarkMode}>
-            {darkMode ? <FaSun /> : <FaMoon />}
+          <button className="theme-toggle">
+            {/* Theme toggle logic here */}
           </button>
           <button className="navbar-burger" onClick={toggleMenu}>
             <span></span>

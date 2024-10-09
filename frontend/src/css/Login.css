@@ -21,7 +21,7 @@
 
 .login-box h2 {
   margin-bottom: 30px;
-  font-size: 28px;
+  font-size: clamp(1.5rem, 5vw, 28px);
   color: var(--login-heading-color);
   font-weight: 700;
 }
@@ -81,26 +81,7 @@
   cursor: not-allowed;
 }
 
-/* Dark mode styles */
-.login-container.dark {
-  --login-background: linear-gradient(135deg, #2a3f5f 0%, #351f50 100%);
-  --login-box-background: rgba(30, 30, 30, 0.9);
-  --login-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  --login-heading-color: #ffffff;
-  --login-input-border: #444444;
-  --login-input-background: #2c2c2c;
-  --login-input-color: #ffffff;
-  --login-input-focus-border: #64b5f6;
-  --login-input-focus-shadow: 0 0 0 3px rgba(100, 181, 246, 0.3);
-  --login-toggle-color: #b0b0b0;
-  --login-button-background: #64b5f6;
-  --login-button-color: #ffffff;
-  --login-button-hover-background: #4a8ec8;
-  --login-button-disabled-background: #4a5568;
-}
-
-/* Light mode styles */
-.login-container:not(.dark) {
+:root {
   --login-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --login-box-background: rgba(255, 255, 255, 0.9);
   --login-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -117,20 +98,39 @@
   --login-button-disabled-background: #a0aec0;
 }
 
+.dark-mode {
+  --login-background: linear-gradient(135deg, #2a3f5f 0%, #351f50 100%);
+  --login-box-background: rgba(30, 30, 30, 0.9);
+  --login-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --login-heading-color: #ffffff;
+  --login-input-border: #444444;
+  --login-input-background: #2c2c2c;
+  --login-input-color: #ffffff;
+  --login-input-focus-border: #64b5f6;
+  --login-input-focus-shadow: 0 0 0 3px rgba(100, 181, 246, 0.3);
+  --login-toggle-color: #b0b0b0;
+  --login-button-background: #64b5f6;
+  --login-button-color: #ffffff;
 
-
+  --login-button-hover-background: #4a8ec8;
+  --login-button-disabled-background: #4a5568;
+}
 
 @media (max-width: 480px) {
   .login-box {
     padding: 30px;
   }
 
-  .login-box h2 {
-    font-size: 24px;
-  }
-
   .login-box input,
   .login-box button[type="submit"] {
     font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-box,
+  .login-box input,
+  .login-box button[type="submit"] {
+    transition: none;
   }
 }

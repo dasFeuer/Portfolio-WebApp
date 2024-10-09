@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import ApiService from '../services/ApiService';
-import { ThemeContext } from './ThemeContext';
 import {
   Table,
   TableBody,
@@ -14,53 +13,52 @@ import {
   Typography,
   TextField,
 } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '../css/Admin.css';
 
-function ContactSubmissions() {
+const ContactSubmissions = () => {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const { darkMode } = useContext(ThemeContext);
 
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-    },
-  });
+  const fetchSubmissions = useCallback(async () => {
+    try {
+      const response = await ApiService.getContactSubmissions();
+      setSubmissions(response.data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching submissions', error);
+      setError('Error fetching submissions');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchSubmissions();
+  }, [fetchSubmissions]);
+
+  const handleDelete = useCallback(async (id) => {
+    if (window.confirm("Are you sure you want to delete this submission?")) {
+      try {
+        await ApiService.deleteContactSubmission(id);
+        await fetchSubmissions();
+      } catch (error) {
+        console.error('Error deleting submission', error);
+        setError('Error deleting submission');
+      }
+    }
+  }, [fetchSubmissions]);
+
+  const handleDownloadSingleCSV = useCallback(async (id) => {
+    try {
+      await ApiService.downloadSingleCSV(id);
+    } catch (error) {
+      console.error('Error downloading CSV', error);
+      setError('Error downloading CSV');
+    }
   }, []);
 
-  const fetchSubmissions = () => {
-    ApiService.getContactSubmissions()
-      .then((response) => {
-        setSubmissions(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching submissions', error);
-        setError('Error fetching submissions');
-        setLoading(false);
-      });
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this submission?")) {
-      ApiService.deleteContactSubmission(id)
-        .then(() => {
-          fetchSubmissions(); // Refresh the list after deletion
-        })
-        .catch((error) => {
-          console.error('Error deleting submission', error);
-          setError('Error deleting submission');
-        });
-    }
-  };
-
-  // Filter submissions based on the search query
   const filteredSubmissions = submissions.filter((submission) =>
     submission.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     submission.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -68,8 +66,7 @@ function ContactSubmissions() {
   );
 
   return (
-  <ThemeProvider theme={theme}>
-    <div className={`admin-panel-container ${darkMode ? 'dark' : ''}`}>
+    <div className="admin-panel-container">
       <Typography variant="h4" gutterBottom className="admin-panel-title">
         Contact Form Submissions
       </Typography>
@@ -110,15 +107,13 @@ function ContactSubmissions() {
                   <TableCell>{submission.message}</TableCell>
                   <TableCell>{new Date(submission.date).toLocaleDateString()}</TableCell>
                   <TableCell>
-                    {/* Download CSV Button for each submission */}
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => ApiService.downloadSingleCSV(submission.id)}
+                      onClick={() => handleDownloadSingleCSV(submission.id)}
                     >
                       Download CSV
                     </Button>
-                    {/* Delete button for each submission */}
                     <Button
                       variant="contained"
                       color="secondary"
@@ -135,8 +130,7 @@ function ContactSubmissions() {
         </TableContainer>
       )}
     </div>
-  </ThemeProvider>
   );
-}
+};
 
 export default ContactSubmissions;

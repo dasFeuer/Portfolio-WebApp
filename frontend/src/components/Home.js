@@ -1,59 +1,49 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { FaCode, FaDatabase, FaDesktop } from 'react-icons/fa';
-import { ThemeContext } from './ThemeContext';
 import '../css/Home.css';
 
-function Home() {
+export default function Home() {
   const skills = ['Java', 'Spring Boot', 'MySQL', 'Git', 'RESTful APIs', 'React', 'JavaScript', 'HTML/CSS'];
-  const [typedText, setTypedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-  const texts = [
+
+  const texts = useMemo(() => [
     "Hello, I'm Barun Panthi Sharma",
     "I'm a Java Backend Developer",
     "I build scalable applications",
     "I love solving complex problems"
-  ];
-  const typingRef = useRef(null);
-  const { darkMode } = useContext(ThemeContext);
+  ], []);
+
+  const [typedText, setTypedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const handleTyping = useCallback(() => {
+    const i = loopNum % texts.length;
+    const fullText = texts[i];
+
+    setTypedText(isDeleting
+      ? fullText.substring(0, typedText.length - 1)
+      : fullText.substring(0, typedText.length + 1)
+    );
+
+    setTypingSpeed(isDeleting ? 30 : 150);
+
+    if (!isDeleting && typedText === fullText) {
+      setTimeout(() => setIsDeleting(true), 1000);
+    } else if (isDeleting && typedText === '') {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+      setTypingSpeed(500);
+    }
+  }, [typedText, isDeleting, loopNum, texts]);
 
   useEffect(() => {
-    const handleTyping = () => {
-      const i = loopNum % texts.length;
-      const fullText = texts[i];
-
-      setTypedText(isDeleting
-        ? fullText.substring(0, typedText.length - 1)
-        : fullText.substring(0, typedText.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 30 : 150);
-
-      if (!isDeleting && typedText === fullText) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && typedText === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-        setTypingSpeed(500);
-      }
-    };
-
-    typingRef.current = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(typingRef.current);
-  }, [typedText, isDeleting, loopNum, typingSpeed, texts]);
-
-  const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = '/path_to_your_cv.pdf';
-    link.download = 'Barun_Panthi_Sharma_CV.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [handleTyping, typingSpeed]);
 
   return (
-    <div className={`home-container ${darkMode ? 'dark' : ''}`}>
+    <div className="home-container">
       <header className="home-header">
         <h1 className="home-title">Barun Panthi Sharma</h1>
         <h2 className="home-subtitle">Java Developer & Problem Solver</h2>
@@ -62,10 +52,10 @@ function Home() {
       <main className="home-main">
         <section className="home-hero">
           <div className="profile-image">
-            <img src="/BarunProfile.jpeg" alt="Barun Panthi Sharma" />
+            <img src="/BarunProfile.jpeg" alt="Barun Panthi Sharma" loading="lazy" />
           </div>
           <div className="typing-container">
-            <p className="typing-text">{typedText}<span className="cursor"></span></p>
+            <p className="typing-text" aria-live="polite">{typedText}<span className="cursor"></span></p>
           </div>
         </section>
 
@@ -84,21 +74,17 @@ function Home() {
         <section className="home-expertise">
           <h3 className="section-title">My Expertise</h3>
           <div className="expertise-grid">
-            <div className="expertise-item">
-              <FaCode className="expertise-icon" />
-              <h4>Backend Development</h4>
-              <p>Proficient in Java and Spring Boot, creating efficient and scalable backend solutions.</p>
-            </div>
-            <div className="expertise-item">
-              <FaDatabase className="expertise-icon" />
-              <h4>Database Management</h4>
-              <p>Experienced in designing and optimizing MySQL databases for high-performance applications.</p>
-            </div>
-            <div className="expertise-item">
-              <FaDesktop className="expertise-icon" />
-              <h4>Frontend Development</h4>
-              <p>Skilled in creating responsive and interactive user interfaces using React and modern JavaScript.</p>
-            </div>
+            {[
+              { icon: FaCode, title: "Backend Development", description: "Proficient in Java and Spring Boot, creating efficient and scalable backend solutions." },
+              { icon: FaDatabase, title: "Database Management", description: "Experienced in designing and optimizing MySQL databases for high-performance applications." },
+              { icon: FaDesktop, title: "Frontend Development", description: "Skilled in creating responsive and interactive user interfaces using React and modern JavaScript." }
+            ].map((item, index) => (
+              <div key={index} className="expertise-item">
+                <item.icon className="expertise-icon" aria-hidden="true" />
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -117,7 +103,7 @@ function Home() {
             <p>Ready to bring your ideas to life? Let's collaborate and create something amazing!</p>
             <div className="cta-buttons">
               <a href="/projects" className="home-button primary">View Projects</a>
-              <button onClick={handleDownloadCV} className="home-button secondary">Download CV</button>
+              <a href="/contact" className="home-button secondary">Contact Me</a>
             </div>
           </div>
         </section>
@@ -125,5 +111,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
