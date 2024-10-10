@@ -1,3 +1,4 @@
+// Home.js
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { FaCode, FaDatabase, FaDesktop } from 'react-icons/fa';
 import '../css/Home.css';
@@ -51,8 +52,10 @@ export default function Home() {
 
       <main className="home-main">
         <section className="home-hero">
-          <div className="profile-image">
-            <img src="/BarunProfile.jpeg" alt="Barun Panthi Sharma" loading="lazy" />
+          <div className="profile-image-container">
+            <div className="profile-image">
+              <img src="/BarunProfile.jpeg" alt="Barun Panthi Sharma" loading="lazy" />
+            </div>
           </div>
           <div className="typing-container">
             <p className="typing-text" aria-live="polite">{typedText}<span className="cursor"></span></p>

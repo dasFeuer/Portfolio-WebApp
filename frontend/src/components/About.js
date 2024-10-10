@@ -1,3 +1,4 @@
+// About.js
 import React, { useState, useCallback } from 'react';
 import { FaGraduationCap, FaBriefcase, FaCode, FaLanguage, FaDownload, FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { GB, DE } from 'country-flag-icons/react/3x2';
@@ -18,7 +19,7 @@ const About = () => {
       interests: 'Interests',
       downloadCV: 'Download CV',
       educationItems: [
-        { title: 'Higher Secondary School', institution: 'Advance Academy Secondary School and Republica College', period: '07/2019 – 09/2021' },
+        { title: 'Higher Secondary School', institution: 'Advance Academy Secondary School and Republica College', period: '07/2019 –   09/2021' },
         { title: 'Secondary School', institution: 'Janjyoti Secondary Boarding School', period: '05/2010 – 04/2019' },
       ],
       experienceItems: [
@@ -35,7 +36,31 @@ const About = () => {
       interestItems: ['Basketball', 'Table Tennis', 'Mobile Games', 'Computer Games', 'Listening to Music', 'Cycling', 'Hiking'],
     },
     de: {
-      // German content (unchanged)
+      title: 'Über Mich',
+      name: 'Barun Panthi Sharma',
+      intro: "Ich bin ein leidenschaftlicher Java-Lerner mit Anfängererfahrung in Spring Boot und MySQL. Ich spezialisiere mich auf den Aufbau skalierbarer Anwendungen und liebe es, komplexe Probleme zu lösen. Mein Ziel ist es, effiziente, wartbare und benutzerfreundliche Softwarelösungen zu erstellen.",
+      education: 'Schulbildung',
+      experience: 'Arbeitserfahrung',
+      skills: 'Fähigkeiten',
+      languages: 'Sprachkenntnisse',
+      interests: 'Interessen',
+      downloadCV: 'Lebenslauf herunterladen',
+      educationItems: [
+        { title: 'Nepalesisch Abitur', institution: 'Advance Academy Secondary School', period: '07/2019 – 09/2021' },
+        { title: 'Nepalesisch Realschulabschluss', institution: 'Janjyoti Secondary Boarding School', period: '05/2010 – 04/2019' },
+      ],
+      experienceItems: [
+        { title: 'Team Assistent', company: 'Nepal Secretariat of Skills and Training (NSST)', period: '06.07.2023 - heute' },
+        { title: 'Teilnehmer Softskills Training', company: 'NSST', period: '04.04.2023 - 07.01.2024' },
+      ],
+      skillItems: ['Java', 'Spring Boot', 'MySQL', 'HTML', 'CSS', 'Python', 'C', 'Git'],
+      languageItems: [
+        { language: 'Nepalesisch', level: 'Muttersprache' },
+        { language: 'Deutsch', level: 'C1 (Kurs mit Teilnahmezertifikat abgeschlossen)' },
+        { language: 'Englisch', level: 'Gute Kenntnisse in Wort und Schrift' },
+        { language: 'Hindi', level: 'Sehr gute Kenntnisse in Wort' },
+      ],
+      interestItems: ['Basketball', 'Tischtennis', 'Handy Spiele', 'Computerspiele', 'Musik Hören', 'Fahrrad fahren', 'Wanderung'],
     },
   };
 
