@@ -7,8 +7,8 @@ export default function Home() {
 
   const texts = useMemo(() => [
     "Hello, I'm Barun Panthi Sharma",
-    "I'm a Java Backend Developer",
-    "I build scalable applications",
+    "I'm a beginner Java Backend Developer",
+    "I build simple web applications",
     "I love solving complex problems"
   ], []);
 

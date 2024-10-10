@@ -11,13 +11,18 @@ const Login = ({ setIsAuthenticated }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Retrieve admin credentials from environment variables
+  const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
+  const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
+
   const handleLogin = useCallback(async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     // Simulating API call
     setTimeout(() => {
-      if (username === 'admin' && password === '@12345') {
+      // Check credentials against environment variables
+      if (username === adminUsername && password === adminPassword) {
         setIsAuthenticated(true);
         navigate('/admin');
       } else {
@@ -25,7 +30,7 @@ const Login = ({ setIsAuthenticated }) => {
       }
       setIsLoading(false);
     }, 1500);
-  }, [username, password, setIsAuthenticated, navigate]);
+  }, [username, password, adminUsername, adminPassword, setIsAuthenticated, navigate]);
 
   return (
     <div className="login-container">
