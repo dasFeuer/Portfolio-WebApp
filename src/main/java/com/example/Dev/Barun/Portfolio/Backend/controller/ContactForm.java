@@ -2,7 +2,6 @@ package com.example.Dev.Barun.Portfolio.Backend.controller;
 
 import jakarta.persistence.*;
 
-// Contact form controller
 @Entity
 @Table(name = "contact_form")
 public class ContactForm {
@@ -14,7 +13,6 @@ public class ContactForm {
     private String email;
     private String message;
 
-    // Getters and Setters
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

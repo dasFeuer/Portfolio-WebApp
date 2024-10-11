@@ -5,13 +5,13 @@ import '../css/Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false); // Keep scrolled as we might use it for a sticky navbar
+  const [scrolled, setScrolled] = useState(false); // Keep scrolled as might use it for a sticky navbar
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      setScrolled(offset > 50); // Simple scroll check
+      setScrolled(offset > 50); // scroll check
     };
 
     window.addEventListener('scroll', handleScroll);

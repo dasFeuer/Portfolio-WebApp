@@ -11,7 +11,7 @@ const Login = ({ setIsAuthenticated }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Retrieve admin credentials from environment variables
+  // Admin credentials from environment variables
   const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
   const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
 
@@ -21,7 +21,7 @@ const Login = ({ setIsAuthenticated }) => {
 
     // Simulating API call
     setTimeout(() => {
-      // Check credentials against environment variables
+      // Check credentials
       if (username === adminUsername && password === adminPassword) {
         setIsAuthenticated(true);
         navigate('/admin');

@@ -1,4 +1,3 @@
-// About.js
 import React, { useState, useCallback } from 'react';
 import { FaGraduationCap, FaBriefcase, FaCode, FaLanguage, FaDownload, FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { GB, DE } from 'country-flag-icons/react/3x2';

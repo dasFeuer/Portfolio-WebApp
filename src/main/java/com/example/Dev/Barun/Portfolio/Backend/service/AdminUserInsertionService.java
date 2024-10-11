@@ -27,7 +27,7 @@ public class AdminUserInsertionService {
     private final List<Map<String, String>> usersToInsert;
 
     public AdminUserInsertionService() {
-        // Initialize usersToInsert with environment variables
+        // Can be initialized usersToInsert with environment variables
         usersToInsert = Arrays.asList(
                 Map.of("username", System.getenv("ADMIN_USERNAME"), "password", System.getenv("ADMIN_PASSWORD"), "role", "ROLE_ADMIN"),
                 Map.of("username", System.getenv("USER1_USERNAME"), "password", System.getenv("USER1_PASSWORD"), "role", "ROLE_USER"),
@@ -44,14 +44,12 @@ public class AdminUserInsertionService {
 
             String encodedPassword = passwordEncoder.encode(rawPassword);
 
-            // Check if the user exists
             Integer count = jdbcTemplate.queryForObject(
                     "SELECT COUNT(*) FROM users WHERE username = ?", Integer.class, username);
 
             if (count != null && count > 0) {
                 logger.info("User {} already exists. Skipping insertion.", username);
             } else {
-                // Insert the user
                 jdbcTemplate.update(
                         "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
                         username, encodedPassword, role);

@@ -19,16 +19,13 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("Attempting to load user: " + username);
 
-        // Fetch user by username
         Users user = userRepo.findByUsername(username);
 
-        // Check if user is null
         if (user == null) {
             System.out.println("User Not Found with username: " + username);
             throw new UsernameNotFoundException("User not found");
         }
 
-        // Return UserPrincipal containing user details
         return new UserPrincipal(user);
     }
 }

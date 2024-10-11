@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { FaCode, FaDatabase, FaDesktop } from 'react-icons/fa';
 import '../css/Home.css';
