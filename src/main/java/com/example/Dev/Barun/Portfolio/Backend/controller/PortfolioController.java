@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/portfolio")
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @Validated
 public class PortfolioController {

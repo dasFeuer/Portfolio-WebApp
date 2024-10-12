@@ -33,8 +33,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("register", "login", "projects", "export-submissions",
-                                "contact-submissions/{id}", "contact", "contact-submissions")
+                        .requestMatchers("/portfolio/","/portfolio/register", "/portfolio/login", "/portfolio/projects", "/portfolio/export-submissions",
+                                "/portfolio/contact-submissions/{id}", "/portfolio/contact", "/portfolio/contact-submissions")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
