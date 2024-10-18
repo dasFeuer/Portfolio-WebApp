@@ -88,7 +88,7 @@ const Projects = () => {
     link: 'http://localhost:3000',
     github: 'https://github.com/dasFeuer/Todo-WebApp.git',
     liveLink: 'http://localhost:3000',
-    imageUrl: '/TodoListImage.jpg',
+    imageUrl: '/TodoApp.png',
     features: [
       'Create, edit, and delete tasks',
       'Mark tasks as complete',
